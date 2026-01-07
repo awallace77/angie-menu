@@ -45,6 +45,7 @@ function MenuItem({
           {title}
         </h2>
         <div className="menu-item-desc">
+          <p className="text-sm opacity-80">{category}</p>
           <p className="text-sm opacity-80">{subtitle}</p>
           <p
             className={`text-sm font-semibold mt-2 ${
