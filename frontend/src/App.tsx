@@ -1,4 +1,4 @@
-import AppNavigation from "./components/AppNavigation";
+import AppNavigation from "./pages/AppNavigation";
 
 function App() {
   const appTitle = "Angie's Dinner Picks";

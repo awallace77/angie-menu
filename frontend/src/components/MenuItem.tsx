@@ -12,7 +12,7 @@ function MenuItem({
 }: MenuItemProps) {
   // const selectedBorder = selected ? "border-2 border-(--coolor-blue-med)" : "";
   const selectedStyles = selected
-    ? "bg-(--coolor-blue-med) shadow-lg-(--coolor-blue-light)"
+    ? "bg-(--coolor-blue-med) shadow-lg-(--coolor-blue-light) text-(--coolor-white)"
     : "border-transparent bg-(--coolor-blue-light)";
 
   return (
@@ -36,7 +36,7 @@ function MenuItem({
         <img
           src={img}
           alt={title}
-          className="w-36 h-full md:w-48 md:h-full object-cover rounded-tl-lg rounded-bl-lg transition-transform duration-500 ease-in-out hover:scale-110 hover:rounded-lg"
+          className="w-36 h-36 md:w-48 md:h-full object-cover rounded-tl-lg rounded-bl-lg transition-transform duration-500 ease-in-out hover:scale-110 hover:rounded-lg"
         />
       </div>
 
@@ -49,7 +49,7 @@ function MenuItem({
           <p className="text-sm opacity-80">{subtitle}</p>
           <p
             className={`text-sm font-semibold mt-2 ${
-              selected ? "text-(--coolor-black)" : "text-(--coolor-blue-med)"
+              selected ? "text-(--coolor-white)" : "text-(--coolor-blue-med)"
             }`}
           >
             ${price}
