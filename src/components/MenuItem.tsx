@@ -5,29 +5,31 @@ function MenuItem({
   img,
   title,
   subtitle,
-  price,
   selected,
   category,
   onClick,
 }: MenuItemProps) {
   // const selectedBorder = selected ? "border-2 border-(--coolor-blue-med)" : "";
   const selectedStyles = selected
-    ? "bg-(--coolor-blue-med) shadow-lg-(--coolor-blue-light) text-(--coolor-white)"
-    : "border-transparent bg-(--coolor-blue-light)";
+    ? "bg-(--coolor-blue-med) text-(--coolor-white)"
+    : "bg-black";
 
   return (
     <div
       className={`
-    menu-item-container flex flex-row justify-start gap-2 w-full 
-    bg-(--coolor-blue-light) rounded-lg ${selectedStyles} text-(--coolor-black) 
+        menu-item-container flex flex-row justify-start gap-2 w-full border-none
+        rounded-lg ${selectedStyles} text-(--coolor-blue-light) 
     
-    /* Transitions & Basic Hover */
-    transition-all duration-300 ease-in-out cursor-pointer
-    hover:border-black shadow-sm-(--coolor-blue-light) hover:shadow-xl
+        transition-all duration-300 ease-in-out cursor-pointer
+        hover:border-black shadow-sm-(--coolor-blue-light)
     
-    /* Lift & Scale Animation */
-    hover:-translate-y-1 hover:scale-[1.01] 
-    active:scale-[0.98]
+        /* Lift & Scale Animation */
+        hover:-translate-y-1 hover:scale-[1.01] 
+        active:scale-[0.98]
+          
+        hover:shadow-[0_0_15px_rgba(255,255,255,0.15)]
+          
+        focus:shadow-[0_0_14px_rgba(255,255,255,0.6)]"
   `}
       onClick={() => onClick(id, category)}
     >
@@ -42,18 +44,19 @@ function MenuItem({
       </div>
 
       <div className="menu-item-desc-container flex flex-col gap-2 p-1 py-3 px-4">
-        <h2 className="text-lg font-bold transition-colors duration-300 group-hover:text-black">
+        <h2 className="text-lg font-bold transition-colors duration-300 group-hover:text-(--coolor-blue-light) uppercase">
           {title}
         </h2>
-        <div className="menu-item-desc">
-          <p className="text-sm opacity-80">{category}</p>
-          <p className="text-sm opacity-80">{subtitle}</p>
+        <div className="menu-item-desc flex gap-2 flex-col">
           <p
-            className={`text-sm font-semibold mt-2 ${
+            className={`text-sm italic ${
               selected ? "text-(--coolor-white)" : "text-(--coolor-blue-med)"
             }`}
           >
-            ${price}
+            {category}
+          </p>
+          <p className="text-sm text-(--coolor-blue-light) opacity-80">
+            {subtitle}
           </p>
         </div>
       </div>

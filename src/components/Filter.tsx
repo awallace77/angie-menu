@@ -17,25 +17,23 @@ function Filter({ activeFilter, setActiveFilter }: FilterProps) {
   }
 
   return (
-    <div className="flex justify-center my-8">
-      <div className="inline-flex bg-(--coolor-blue) p-1 rounded-xl border border-gray-800">
-        {filters.map((filter) => (
-          <button
-            key={filter}
-            onClick={() => handleFilterClick(filter)}
-            className={`
-              px-8 py-2 rounded-lg text-md transition-all duration-300 
+    <div className="flex justify-evenly w-full my-8 px-2 py-4 bg-black rounded-2xl">
+      {filters.map((filter) => (
+        <button
+          key={filter}
+          onClick={() => handleFilterClick(filter)}
+          className={`
+              px-4 py-2 rounded-lg text-md transition-all duration-300 uppercase
               ${
                 activeFilter === filter
-                  ? "bg-(--coolor-black) text-(--coolor-white)shadow-[0_0_15px_rgba(0,0,0,0.4)]"
+                  ? "bg-(--coolor-black) text-(--coolor-blue-light) shadow-[0_0_15px_rgba(0,0,0,0.4)]"
                   : "text-gray-500 hover:text-(--coolor-black) hover:cursor-pointer"
               }
             `}
-          >
-            {filter}
-          </button>
-        ))}
-      </div>
+        >
+          {filter}
+        </button>
+      ))}
     </div>
   );
 }

@@ -7,6 +7,13 @@ function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
+  // 1. Define the order
+  const categoryOrder: Record<string, number> = {
+    Appetizer: 0,
+    Main: 1,
+    Dessert: 2,
+  };
+
   const handleExport = async () => {
     if (!menuRef.current) return;
     setIsGenerating(true);
@@ -52,10 +59,17 @@ function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
             {title || "Menu"}
           </h1>
         </div>
+        <div className="mt-8 pt-4 border-t border-gray-800 text-center"></div>
 
         <div className="flex flex-col gap-6">
           {items
             .filter((i: MenuItemType) => i.selected)
+            .sort((a, b) => {
+              // If categories are missing from the map, default to a high number
+              const orderA = categoryOrder[a.category] ?? 99;
+              const orderB = categoryOrder[b.category] ?? 99;
+              return orderA - orderB;
+            })
             .map((item: MenuItemType) => (
               <div
                 key={item.id}
@@ -71,11 +85,11 @@ function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
                   />
                 </div>
                 <div className="flex-1 pr-4">
-                  <h3 className="text-(--coolor-white) font-medium">
+                  <h3 className="text-(--coolor-white) font-medium pt-1">
                     {item.title}
                   </h3>
                   <p className="text-gray-500 text-xs">{item.subtitle}</p>
-                  <p className="text-(--coolor-blue-med) font-bold mt-1">
+                  <p className="text-(--coolor-blue-med) font-bold mt-1 pb-1">
                     ${item.price}
                   </p>
                 </div>
@@ -84,9 +98,9 @@ function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
         </div>
 
         <div className="mt-8 pt-4 border-t border-gray-800 text-center">
-          <p className="text-[10px] text-gray-600 uppercase tracking-widest">
+          {/* <p className="text-[10px] text-gray-600 uppercase tracking-widest">
             Generated via AngieMenuApp
-          </p>
+          </p> */}
         </div>
       </div>
 

@@ -37,10 +37,10 @@ function SearchBar({
         <input
           aria-label={label}
           id="search"
-          className="w-full pl-11 pr-4 py-2 
-          rounded-lg outline-none border-none 
+          className="w-full pl-11 px-2 py-4 
+          rounded-xl outline-none border-none 
           transition-all duration-300
-          bg-(--coolor-blue) hover:bg-(--coolor-blue) active:bg-(--coolor-blue) focus-within:bg-(--coolor-blue) text-(--coolor-black)
+          bg-black   text-(--coolor-blue-light)
           hover:shadow-[0_0_8px_rgba(255,255,255,0.3)]
           focus:shadow-[0_0_14px_rgba(255,255,255,0.6)]"
           type="text"
