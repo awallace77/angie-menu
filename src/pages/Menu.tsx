@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
+import type { MenuItemType } from "../data/MenuItemType";
 
-function Menu({ title, author, items }: any) {
+function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
   const menuRef = useRef<HTMLDivElement>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -50,13 +51,12 @@ function Menu({ title, author, items }: any) {
           <h1 className="text-3xl font-bold text-white uppercase tracking-tighter">
             {title || "Menu"}
           </h1>
-          <p className="text-blue-400 text-sm">Curated by {author}</p>
         </div>
 
         <div className="flex flex-col gap-6">
           {items
-            .filter((i: any) => i.selected)
-            .map((item: any) => (
+            .filter((i: MenuItemType) => i.selected)
+            .map((item: MenuItemType) => (
               <div
                 key={item.id}
                 className="flex items-center gap-4 bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800"
@@ -71,9 +71,13 @@ function Menu({ title, author, items }: any) {
                   />
                 </div>
                 <div className="flex-1 pr-4">
-                  <h3 className="text-white font-medium">{item.title}</h3>
+                  <h3 className="text-(--coolor-white) font-medium">
+                    {item.title}
+                  </h3>
                   <p className="text-gray-500 text-xs">{item.subtitle}</p>
-                  <p className="text-blue-400 font-bold mt-1">${item.price}</p>
+                  <p className="text-(--coolor-blue-med) font-bold mt-1">
+                    ${item.price}
+                  </p>
                 </div>
               </div>
             ))}
@@ -81,7 +85,7 @@ function Menu({ title, author, items }: any) {
 
         <div className="mt-8 pt-4 border-t border-gray-800 text-center">
           <p className="text-[10px] text-gray-600 uppercase tracking-widest">
-            Generated via MenuApp
+            Generated via AngieMenuApp
           </p>
         </div>
       </div>
@@ -89,7 +93,7 @@ function Menu({ title, author, items }: any) {
       <button
         onClick={handleExport}
         disabled={isGenerating}
-        className="bg-white text-black px-10 py-4 rounded-full font-black uppercase tracking-widest transition-all hover:bg-blue-500 hover:text-white"
+        className="bg-white text-black px-10 py-4 rounded-full font-black uppercase tracking-widest transition-all hover:bg-(--coolor-blue-med) hover:text-white"
       >
         {isGenerating ? "Processing..." : "Save to Photos"}
       </button>
@@ -99,7 +103,9 @@ function Menu({ title, author, items }: any) {
         <div className="fixed inset-0 bg-black/95 z-50 flex flex-col items-center justify-center p-6 backdrop-blur-md">
           <p className="text-white text-center mb-4">
             Hold image to{" "}
-            <span className="text-blue-400 font-bold">Save to Photos</span>
+            <span className="text-(--coolor-blue-med) font-bold">
+              Save to Photos
+            </span>
           </p>
           <img
             src={previewImage}

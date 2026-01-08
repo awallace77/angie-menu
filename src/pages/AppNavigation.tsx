@@ -17,7 +17,6 @@ function AppNavigation() {
   const [items, setItems] = useState<Array<MenuItemType>>(myDishes);
   const [searchItems, setSearchItems] = useState(items);
   const [query, setQuery] = useState("");
-  const [title, setTitle] = useState("");
 
   const visibleItems = items.filter((item) => {
     const matchesFilter =
@@ -61,23 +60,6 @@ function AppNavigation() {
     setQuery(query);
   }
 
-  function handleTitleChange(title: string) {
-    setTitle(title);
-  }
-
-  function handleClear() {
-    const updatedItems = items.map((item) => {
-      return { ...item, selected: false };
-    });
-
-    const updatedSearchItems = searchItems.map((item) => {
-      return { ...item, selected: false };
-    });
-
-    setItems(updatedItems);
-    setSearchItems(updatedSearchItems);
-  }
-
   return (
     <div className="min-h-screen">
       {/* 1. The Tab Toggle */}
@@ -108,13 +90,7 @@ function AppNavigation() {
           </section>
         ) : (
           <section className="animate-in fade-in slide-in-from-bottom-4 duration-500 text-center">
-            <Menu
-              onItemClick={handleMenuItemClick}
-              onTitleChange={handleTitleChange}
-              onClear={handleClear}
-              items={items}
-              title={title}
-            />
+            <Menu items={items} title="Angie's Menu Picks" />
           </section>
         )}
       </main>
