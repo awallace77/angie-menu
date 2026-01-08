@@ -5,7 +5,7 @@ function Navigation({ activePage, setActivePage }: NavigationProps) {
   const pages: PageView[] = ["Dishes", "Menu"];
 
   return (
-    <div className="flex justify-center my-8">
+    <div className="flex justify-center">
       <div className="inline-flex bg-(--coolor-blue) p-1 rounded-xl border border-gray-800">
         {pages.map((page) => (
           <button
