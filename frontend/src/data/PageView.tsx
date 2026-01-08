@@ -1,1 +1,1 @@
-export type PageView = "Dishes" | "Menu" | "Saved";
+export type PageView = "Dishes" | "Menu";

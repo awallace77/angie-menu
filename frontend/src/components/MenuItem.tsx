@@ -36,7 +36,7 @@ function MenuItem({
         <img
           src={img}
           alt={title}
-          className="w-36 h-36 md:w-48 md:h-full object-cover rounded-tl-lg rounded-bl-lg transition-transform duration-500 ease-in-out hover:scale-110 hover:rounded-lg"
+          className="w-36 h-full md:w-48 object-cover rounded-tl-lg rounded-bl-lg transition-transform duration-500 ease-in-out hover:scale-110"
         />
       </div>
 

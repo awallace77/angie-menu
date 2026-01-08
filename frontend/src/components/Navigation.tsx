@@ -2,7 +2,7 @@ import type { NavigationProps } from "../data/NavigationProps";
 import type { PageView } from "../data/PageView";
 
 function Navigation({ activePage, setActivePage }: NavigationProps) {
-  const pages: PageView[] = ["Dishes", "Menu", "Saved"];
+  const pages: PageView[] = ["Dishes", "Menu"];
 
   return (
     <div className="flex justify-center">

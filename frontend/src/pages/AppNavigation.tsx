@@ -8,7 +8,6 @@ import type { MenuCategoryType } from "../data/MenuCategory";
 import Menu from "./Menu";
 import { myDishes } from "../sources/MyDishes";
 import Filter from "../components/Filter";
-import Saved from "./Saved";
 
 function AppNavigation() {
   const [activePage, setActivePage] = useState<PageView>("Dishes");
@@ -16,14 +15,10 @@ function AppNavigation() {
     null
   );
   const [items, setItems] = useState<Array<MenuItemType>>(myDishes);
-
   const [searchItems, setSearchItems] = useState(items);
   const [query, setQuery] = useState("");
   const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
 
-  // 1. DERIVED STATE: Calculate the list to show every time the component renders
-  // This automatically updates when query, items, or activeFilter changes!
   const visibleItems = items.filter((item) => {
     const matchesFilter =
       activeFilter !== null ? item.category === activeFilter : true;
@@ -70,10 +65,6 @@ function AppNavigation() {
     setTitle(title);
   }
 
-  function handleAuthorChange(author: string) {
-    setAuthor(author);
-  }
-
   function handleClear() {
     const updatedItems = items.map((item) => {
       return { ...item, selected: false };
@@ -85,33 +76,6 @@ function AppNavigation() {
 
     setItems(updatedItems);
     setSearchItems(updatedSearchItems);
-  }
-
-  async function handleSave(
-    title: string,
-    author: string,
-    items: Array<MenuItemType | undefined>
-  ) {
-    console.log("TODO: Handle Save");
-    console.log("Title: " + title);
-    console.log("Author: " + author);
-    items.forEach((item) => {
-      console.log(item?.title);
-    });
-    // Only get the items where selected is true
-    const selectedItems = items.filter((i) => i && i.selected);
-    const baseUrl = window.location.origin;
-    const response = await fetch(`${baseUrl}/api/save-menu`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: title,
-        author: author,
-        items: selectedItems,
-      }),
-    });
-
-    if (response.ok) alert("Menu Saved to SQLite!");
   }
 
   return (
@@ -142,22 +106,15 @@ function AppNavigation() {
               />
             </div>
           </section>
-        ) : activePage === "Menu" ? (
+        ) : (
           <section className="animate-in fade-in slide-in-from-bottom-4 duration-500 text-center">
             <Menu
               onItemClick={handleMenuItemClick}
-              onAuthorChange={handleAuthorChange}
               onTitleChange={handleTitleChange}
               onClear={handleClear}
-              onSave={handleSave}
               items={items}
               title={title}
-              author={author}
             />
-          </section>
-        ) : (
-          <section className="animate-in fade-in slide-in-from-bottom-4 duration-500 text-center">
-            <Saved activePage={activePage} />
           </section>
         )}
       </main>
