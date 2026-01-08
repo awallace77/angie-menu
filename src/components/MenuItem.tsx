@@ -4,6 +4,7 @@ function MenuItem({
   id,
   img,
   title,
+  price,
   subtitle,
   selected,
   category,
@@ -57,6 +58,15 @@ function MenuItem({
           </p>
           <p className="text-sm text-(--coolor-blue-light) opacity-80">
             {subtitle}
+          </p>
+          <p
+            className={`font-bold mt-1 pb-1 ${
+              selected
+                ? "text-(--coolor-blue-light)"
+                : "text-(--coolor-blue-med)"
+            }`}
+          >
+            ${price}
           </p>
         </div>
       </div>

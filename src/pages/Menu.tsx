@@ -76,7 +76,7 @@ function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
                 className="flex items-center gap-4 bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800"
               >
                 {/* IMAGE: Crucial 'crossOrigin' attribute added here */}
-                <div className="w-24 h-24 shrink-0">
+                <div className="w-24 h-full shrink-0">
                   <img
                     src={item.img}
                     alt={item.title}
@@ -97,11 +97,7 @@ function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
             ))}
         </div>
 
-        <div className="mt-8 pt-4 border-t border-gray-800 text-center">
-          {/* <p className="text-[10px] text-gray-600 uppercase tracking-widest">
-            Generated via AngieMenuApp
-          </p> */}
-        </div>
+        <div className="mt-8 pt-4 border-t border-gray-800 text-center"></div>
       </div>
 
       <button
