@@ -40,7 +40,7 @@ function MenuItem({
           src={img}
           alt={title}
           crossOrigin="anonymous"
-          className="w-28 h-full md:w-48 object-cover rounded-tl-lg rounded-bl-lg transition-transform duration-500 ease-in-out hover:scale-110"
+          className="w-40 h-full md:w-48 object-cover rounded-tl-lg rounded-bl-lg transition-transform duration-500 ease-in-out hover:scale-110"
         />
       </div>
 

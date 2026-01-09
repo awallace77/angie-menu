@@ -14,41 +14,91 @@ function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
     Dessert: 2,
   };
 
+  const waitForImages = async (container: HTMLElement) => {
+    const images = Array.from(container.querySelectorAll("img"));
+
+    await Promise.all(
+      images.map((img) => {
+        if (img.complete && img.naturalWidth !== 0) {
+          // iOS still needs decode()
+          return img.decode?.().catch(() => {});
+        }
+
+        return new Promise<void>((resolve) => {
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+        });
+      })
+    );
+  };
+
   const handleExport = async () => {
     if (!menuRef.current) return;
     setIsGenerating(true);
 
     try {
-      // 1. Generate the Image
-      // We use a slight delay to ensure all images are fully rendered
+      await waitForImages(menuRef.current);
+
+      // Extra frame for iOS paint
+      await new Promise((r) => requestAnimationFrame(() => r(null)));
+
       const dataUrl = await toPng(menuRef.current, {
         cacheBust: true,
+        pixelRatio: 2,
         backgroundColor: "#000000",
-        pixelRatio: 2, // Increases quality for retina displays/printing
       });
 
-      // 2. Prepare the File for the iOS Share Sheet
       const blob = await (await fetch(dataUrl)).blob();
-      const file = new File([blob], `${title || "my-menu"}.png`, {
-        type: "image/png",
-      });
+      const file = new File([blob], "menu.png", { type: "image/png" });
 
-      // 3. Share Sheet (Direct to Photos Gallery)
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: "My Custom Menu",
-        });
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file] });
       } else {
-        // Fallback for desktop/older iOS
         setPreviewImage(dataUrl);
       }
-    } catch (error) {
-      console.error("Export failed", error);
+    } catch (err) {
+      console.error("iPhone Export Error:", err);
+      const fallback = await toPng(menuRef.current);
+      setPreviewImage(fallback);
     } finally {
       setIsGenerating(false);
     }
   };
+
+  /*const handleExport = async () => {
+    if (!menuRef.current) return;
+    setIsGenerating(true);
+
+    try {
+      // A small delay helps Safari "paint" the images to the screen before the capture
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const dataUrl = await toPng(menuRef.current, {
+        cacheBust: true,
+        // iPhone displays are high-res; 2 is usually safe, but try 1.5 if it crashes
+        pixelRatio: 2,
+        backgroundColor: "#000000",
+        // This helps if custom fonts are blocking the image render
+        skipFonts: false,
+      });
+
+      const blob = await (await fetch(dataUrl)).blob();
+      const file = new File([blob], "menu.png", { type: "image/png" });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file] });
+      } else {
+        setPreviewImage(dataUrl);
+      }
+    } catch (error) {
+      console.error("iPhone Export Error:", error);
+      // If share fails, always show the fallback image for long-press
+      const dataUrl = await toPng(menuRef.current);
+      setPreviewImage(dataUrl);
+    } finally {
+      setIsGenerating(false);
+    }
+  };*/
 
   return (
     <div className="flex flex-col items-center gap-6 p-4">
@@ -75,7 +125,6 @@ function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
                 key={item.id}
                 className="flex items-center gap-4 bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800"
               >
-                {/* IMAGE: Crucial 'crossOrigin' attribute added here */}
                 <div className="w-24 h-full shrink-0">
                   <img
                     src={item.img}

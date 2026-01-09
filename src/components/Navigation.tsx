@@ -16,7 +16,7 @@ function Navigation({ activePage, setActivePage }: NavigationProps) {
               ${
                 activePage === page
                   ? "bg-(--coolor-black) text-(--coolor-blue-light) shadow-[0_0_15px_rgba(0,0,0,0.4)]"
-                  : "text-gray-500 hover:text-(--coolor-black) hover:cursor-pointer"
+                  : "text-gray-500 hover:text-(--coolor-blue-light) hover:cursor-pointer"
               }
             `}
           >
