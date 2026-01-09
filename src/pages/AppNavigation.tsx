@@ -12,7 +12,7 @@ import Filter from "../components/Filter";
 function AppNavigation() {
   const [activePage, setActivePage] = useState<PageView>("Dishes");
   const [activeFilter, setActiveFilter] = useState<MenuCategoryType | null>(
-    null
+    "Appetizer"
   );
   const [items, setItems] = useState<Array<MenuItemType>>(myDishes);
   const [searchItems, setSearchItems] = useState(items);

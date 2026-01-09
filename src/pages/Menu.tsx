@@ -156,6 +156,9 @@ function Menu({ title, items }: { title: string; items: Array<MenuItemType> }) {
       >
         {isGenerating ? "Processing..." : "Save to Photos"}
       </button>
+      <span className="text-gray-400 text-sm italic">
+        Or just screenshot - the world is your oyster.
+      </span>
 
       {/* Fallback Modal */}
       {previewImage && (
